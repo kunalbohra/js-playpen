@@ -1,0 +1,23 @@
+{
+  "name": "js-playpen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kunalbohra/js-playpen.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kunalbohra/js-playpen/issues"
+  },
+  "homepage": "https://github.com/kunalbohra/js-playpen#readme",
+  "devDependencies": {
+    "jest": "^24.1.0"
+  }
+}
