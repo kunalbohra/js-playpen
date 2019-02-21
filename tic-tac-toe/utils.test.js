@@ -1,7 +1,8 @@
 const { empty, full, turn } = require('./utils');
 
 describe('utils test', () => {
-  xtest('an empty grid is produced by empty', () => {
+  test('an empty grid is produced by empty', () => {
+    debugger;
     expect(empty(3)).toEqual([
       ['B', 'B', 'B'],
       ['B', 'B', 'B'],

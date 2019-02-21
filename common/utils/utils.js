@@ -2,11 +2,11 @@
 const curry = fn => {
   const arity = fn.length;
 
-  return (curried = (...remainingArgs) => {
+  return function curried(...remainingArgs) {
     if (remainingArgs.length >= arity) return fn.apply(null, remainingArgs);
     return (...restArgs) =>
       curried.apply(null, [...remainingArgs, ...restArgs]);
-  });
+  };
 };
 
 const compose = (...fns) => arg => fns.reduceRight((acc, fn) => fn(acc), arg);
