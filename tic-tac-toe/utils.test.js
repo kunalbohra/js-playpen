@@ -2,7 +2,6 @@ const { empty, full, turn } = require('./utils');
 
 describe('utils test', () => {
   test('an empty grid is produced by empty', () => {
-    debugger;
     expect(empty(3)).toEqual([
       ['B', 'B', 'B'],
       ['B', 'B', 'B'],
@@ -21,5 +20,6 @@ describe('utils test', () => {
 
   test('turn works as expected', () => {
     expect(turn([['X', 'X', 'O'], ['X', 'O', 'X'], ['X', 'O', 'X']])).toBe('O');
+    expect(turn([['X', 'O', 'O'], ['O', 'O', 'O'], ['X', 'O', 'X']])).toBe('X');
   });
 });

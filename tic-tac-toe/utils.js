@@ -7,8 +7,8 @@ const full = grid => all(v => v !== 'B')(grid.flat());
 const turn = grid => {
   const flattendGrid = grid.flat();
 
-  let os = flattendGrid.filter(v => v === 'O');
-  let xs = flattendGrid.filter(v => v === 'X');
+  let os = flattendGrid.filter(v => v === 'O').length;
+  let xs = flattendGrid.filter(v => v === 'X').length;
 
   return os <= xs ? 'O' : 'X';
 };
