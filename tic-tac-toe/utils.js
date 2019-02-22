@@ -1,4 +1,10 @@
-const { replicate, all } = require('../common/utils/utils');
+const {
+  replicate,
+  all,
+  map,
+  reverse,
+  compose
+} = require('../common/utils/utils');
 
 const empty = size => replicate(size)(replicate(size, 'B'));
 const full = grid => all(v => v !== 'B')(grid.flat());
@@ -13,14 +19,29 @@ const turn = grid => {
   return os <= xs ? 'O' : 'X';
 };
 
-// diag :: Grid -> [Player]
-//const diag = grid =>
-// wins :: Player -> Grid -> Bool
-/* const wins = (player, grid) => {
+/**
+ * diag :: Grid -> [Player]
+ * returns the main diagonal of a grid
+ */
+const diag = grid => grid.reduce((acc, _, i, arr) => acc.concat(arr[i][i]), []);
 
-} */
+const reverseDiag = compose(
+  diag,
+  map(reverse)
+);
+//wins :: Player -> Grid -> Bool
+const wins = (player, grid) => {
+  const line = all(v => v === player);
+  const rows = [...grid];
+  const cols = transpose(grid);
+  const diags = diag(grid).concat(reverseDiag(grid));
+};
+
 module.exports = {
   empty,
   full,
-  turn
+  turn,
+  diag,
+  wins,
+  reverseDiag
 };
