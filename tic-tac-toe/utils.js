@@ -43,11 +43,15 @@ const wins = (player, grid) => {
   return any(line, [...rows, ...cols, diags, reverseDiags]);
 };
 
+//won :: Grid -> Bool
+const won = grid => wins('O', grid) || wins('X', grid);
+
 module.exports = {
   empty,
   full,
   turn,
   diag,
   wins,
-  reverseDiag
+  reverseDiag,
+  won
 };
