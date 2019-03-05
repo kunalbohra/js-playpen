@@ -25,6 +25,12 @@ const replicate = curry((times, value) =>
 //all :: Foldable t => (a -> Bool) -> t a -> Bool
 const all = curry((predicate, list) => list.every(predicate));
 
+//any :: Foldable t => (a -> Bool) -> t a -> Bool
+const any = curry((predicate, list) => {
+  console.log('any', list);
+  return list.some(predicate);
+});
+
 /**
  * transpose :: [[a]] -> [[a]]
 * Transposes the rows and columns of a 2D list. When passed a list of n lists of length x, 
@@ -38,9 +44,9 @@ const transpose = grid => {
   );
 };
 
-const reverse = arr => arr.reverse();
+const reverse = list => list.reverse();
 
-const map = curry((f, arr) => arr.map(f));
+const map = curry((f, list) => list.map(f));
 
 module.exports = {
   curry,
@@ -49,5 +55,6 @@ module.exports = {
   all,
   transpose,
   reverse,
-  map
+  map,
+  any
 };

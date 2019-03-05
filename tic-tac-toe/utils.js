@@ -3,7 +3,9 @@ const {
   all,
   map,
   reverse,
-  compose
+  compose,
+  any,
+  transpose
 } = require('../common/utils/utils');
 
 const empty = size => replicate(size)(replicate(size, 'B'));
@@ -29,12 +31,16 @@ const reverseDiag = compose(
   diag,
   map(reverse)
 );
+
 //wins :: Player -> Grid -> Bool
 const wins = (player, grid) => {
   const line = all(v => v === player);
   const rows = [...grid];
   const cols = transpose(grid);
-  const diags = diag(grid).concat(reverseDiag(grid));
+  const diags = diag(grid);
+  const reverseDiags = reverseDiag(grid);
+
+  return any(line, [...rows, ...cols, diags, reverseDiags]);
 };
 
 module.exports = {

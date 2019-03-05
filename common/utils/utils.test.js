@@ -1,4 +1,4 @@
-const { replicate, all, transpose } = require('./utils');
+const { replicate, all, transpose, any } = require('./utils');
 
 describe('util tests', () => {
   test('replicate', () => {
@@ -16,5 +16,10 @@ describe('util tests', () => {
       [2, 5, 8],
       [3, 6, 9]
     ]);
+  });
+
+  test('any', () => {
+    expect(any(v => v > 1, [1, 2, 3, 4])).toBe(true);
+    expect(any(v => v > 1, [-1, -2, -3, -4])).toBe(false);
   });
 });

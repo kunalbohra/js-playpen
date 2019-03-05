@@ -1,4 +1,4 @@
-const { empty, full, turn, diag, reverseDiag } = require('./utils');
+const { empty, full, turn, diag, reverseDiag, wins } = require('./utils');
 
 describe('utils test', () => {
   test('an empty grid is produced by empty', () => {
@@ -33,9 +33,13 @@ describe('utils test', () => {
     expect(reverseDiag(grid)).toEqual(['O', 'O', 'X']);
   });
 
-  xtest('wins works as expected', () => {
-    expect(
-      wins('O', [['X', 'O', 'O'], ['O', 'O', 'O'], ['X', 'O', 'X']]).toBe(true)
+  test('wins works as expected', () => {
+    expect(wins('O', [['X', 'O', 'O'], ['X', 'X', 'O'], ['X', 'O', 'X']])).toBe(
+      false
+    );
+
+    expect(wins('O', [['X', 'O', 'O'], ['X', 'O', 'O'], ['X', 'O', 'X']])).toBe(
+      true
     );
   });
 });
