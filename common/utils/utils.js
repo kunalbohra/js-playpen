@@ -48,6 +48,18 @@ const reverse = list => list.reverse();
 
 const map = curry((f, list) => list.map(f));
 
+//interleave :: a -> [a] -> [[a]]
+const interleave = (x, [first, ...rest]) =>
+  !first
+    ? [[x]]
+    : [[x, first, ...rest]].concat(
+        interleave(x, rest).map(y => [first].concat(y))
+      );
+
+//zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+const zipWith = (fn, [first, ...rest], [first2, ...rest2]) =>
+  !first || !first2 ? [] : [fn(first, first2)].concat(zipWith(fn, rest, rest2));
+
 module.exports = {
   curry,
   compose,
@@ -56,5 +68,7 @@ module.exports = {
   transpose,
   reverse,
   map,
-  any
+  any,
+  interleave,
+  zipWith
 };

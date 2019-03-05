@@ -1,4 +1,11 @@
-const { replicate, all, transpose, any } = require('./utils');
+const {
+  replicate,
+  all,
+  transpose,
+  any,
+  interleave,
+  zipWith
+} = require('./utils');
 
 describe('util tests', () => {
   test('replicate', () => {
@@ -21,5 +28,23 @@ describe('util tests', () => {
   test('any', () => {
     expect(any(v => v > 1, [1, 2, 3, 4])).toBe(true);
     expect(any(v => v > 1, [-1, -2, -3, -4])).toBe(false);
+  });
+
+  test('interleave', () => {
+    expect(interleave(1, [2, 3, 4])).toEqual([
+      [1, 2, 3, 4],
+      [2, 1, 3, 4],
+      [2, 3, 1, 4],
+      [2, 3, 4, 1]
+    ]);
+  });
+
+  test('zipWith', () => {
+    expect(zipWith((x, y) => x + y, [1, 2, 3], [4, 5, 6])).toEqual([5, 7, 9]);
+    expect(zipWith((x, y) => x * y, [1, 2, 3], [4, 5, 6])).toEqual([4, 10, 18]);
+    expect(zipWith((x, y) => x + y, ['h', 'y'], ['e', 'o'])).toEqual([
+      'he',
+      'yo'
+    ]);
   });
 });
