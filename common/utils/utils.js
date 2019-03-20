@@ -38,7 +38,9 @@ const any = curry((predicate, list) => {
 
 /**
  * transpose :: [[a]] -> [[a]]
-* Transposes the rows and columns of a 2D list. When passed a list of n lists of length x, 
+ * @param {Array} grid - the game grid
+ * @returns {Array}
+* @description Transposes the rows and columns of a 2D list. When passed a list of n lists of length x, 
 returns a list of x lists of length n.
 */
 const transpose = grid => {
@@ -57,7 +59,10 @@ const flat = list => list.flat();
 
 /**
  * interleave :: a -> [a] -> [a]
- * interleave a value between each element in a list
+ * @param {any} - value that will be interleaved
+ * @param {Array} - list that will receive the element
+ * @returns {Array}
+ * @description interleave a value between each element in a list
  *  */
 const interleave = curry((x, [first, ...rest]) =>
   !first
@@ -78,17 +83,34 @@ const concatStr = curry((str1, str2) => str1.concat(str2));
 //unlines :: [a] -> a
 const unlines = list => list.join('\n');
 
-//chop :: Int -> [a] -> [[a]]
-const chop = (n, list) =>
+/**
+ * chop :: Int -> [a] -> [[a]]
+ * @param {Number} n - the length of a given maximal chunk
+ * @param {Array} list - the list to be chopped
+ * @returns {Array}
+ *  */
+const chop = curry((n, list) =>
   n === 0
     ? list
     : list.length < 1
     ? []
-    : [take(n, list)].concat(chop(n, drop(n, list)));
+    : [take(n, list)].concat(chop(n, drop(n, list)))
+);
 
-//spliAt :: Int -> [a] -> ([a], [a])
+/**
+ * spliAt :: Int -> [a] -> ([a], [a])
+ * @param {Number} n - the index to split the list
+ * @param {Array} list - the list to be split
+ * @returns {Array}
+ * @description splits the list into 2 parts at a given index n
+ *  */
 const splitAt = curry((n, list) => [take(n, list)].concat([drop(n, list)]));
 
+/**
+ * @param {string} tag - descriptive text that the value being logged should be associated with
+ * @param {any} val - actual value being logged
+ * @description a curried function that can be a part of a pipe or compose operation to assist with console debugging
+ */
 const trace = curry((tag, val) => {
   console.log(`tag ${tag} val ${val}`);
   return val;
