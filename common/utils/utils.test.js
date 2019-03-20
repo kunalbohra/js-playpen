@@ -4,10 +4,15 @@ const {
   transpose,
   any,
   interleave,
-  zipWith
+  zipWith,
+  unlines,
+  last
 } = require('./utils');
 
 describe('util tests', () => {
+  test('last', () => {
+    expect(last([1, 2, 3, 4, 5])).toBe(5);
+  });
   test('replicate', () => {
     expect(replicate(3, 1)).toEqual([1, 1, 1]);
   });
@@ -31,11 +36,18 @@ describe('util tests', () => {
   });
 
   test('interleave', () => {
-    expect(interleave(1, [2, 3, 4])).toEqual([
-      [1, 2, 3, 4],
-      [2, 1, 3, 4],
-      [2, 3, 1, 4],
-      [2, 3, 4, 1]
+    expect(interleave(1, [2, 3, 4])).toEqual([2, 1, 3, 1, 4]);
+    expect(
+      interleave(
+        ['|', '|', '|'],
+        [['   ', ' O ', '   '], ['   ', '   ', '   '], ['   ', ' X ', '   ']]
+      )
+    ).toEqual([
+      ['   ', ' O ', '   '],
+      ['|', '|', '|'],
+      ['   ', '   ', '   '],
+      ['|', '|', '|'],
+      ['   ', ' X ', '   ']
     ]);
   });
 
@@ -46,5 +58,9 @@ describe('util tests', () => {
       'he',
       'yo'
     ]);
+  });
+
+  xtest('unlines', () => {
+    expect(unlines(['h', 'k'])).toEqual('h\nk\n');
   });
 });

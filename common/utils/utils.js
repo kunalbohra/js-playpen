@@ -4,6 +4,8 @@ const head = ([first]) => first;
 //tail :: [a] -> a
 const tail = ([_, ...rest]) => rest;
 
+const last = list => list[list.length - 1];
+
 //curry :: ((a, b) -> c) -> a -> b -> c
 const curry = fn => {
   const arity = fn.length;
@@ -27,7 +29,7 @@ const all = curry((predicate, list) => list.every(predicate));
 
 //any :: Foldable t => (a -> Bool) -> t a -> Bool
 const any = curry((predicate, list) => {
-  console.log('any', list);
+  // console.log('any', list);
   return list.some(predicate);
 });
 
@@ -48,17 +50,35 @@ const reverse = list => list.reverse();
 
 const map = curry((f, list) => list.map(f));
 
-//interleave :: a -> [a] -> [[a]]
-const interleave = (x, [first, ...rest]) =>
+const flat = list => list.flat();
+
+/**
+ * interleave :: a -> [a] -> [a]
+ * interleave a value between each element in a list
+ *  */
+const interleave = curry((x, [first, ...rest]) =>
   !first
-    ? [[x]]
-    : [[x, first, ...rest]].concat(
-        interleave(x, rest).map(y => [first].concat(y))
-      );
+    ? []
+    : rest.length < 1
+    ? [first]
+    : [first].concat([x]).concat(interleave(x, rest))
+);
 
 //zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
-const zipWith = (fn, [first, ...rest], [first2, ...rest2]) =>
-  !first || !first2 ? [] : [fn(first, first2)].concat(zipWith(fn, rest, rest2));
+const zipWith = curry((fn, [first, ...rest], [first2, ...rest2]) =>
+  !first || !first2 ? [] : [fn(first, first2)].concat(zipWith(fn, rest, rest2))
+);
+
+//concat :: [a] -> [a] -> [a]
+const concatStr = curry((str1, str2) => str1.concat(str2));
+
+//unlines :: [a] -> a
+const unlines = list => list.join('\n');
+
+const trace = curry((tag, val) => {
+  console.log(`tag ${tag} val ${val}`);
+  return val;
+});
 
 module.exports = {
   curry,
@@ -70,5 +90,10 @@ module.exports = {
   map,
   any,
   interleave,
-  zipWith
+  zipWith,
+  concatStr,
+  unlines,
+  flat,
+  trace,
+  last
 };

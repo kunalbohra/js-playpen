@@ -1,7 +1,17 @@
-const { interleave, replicate, compose } = require('../common/utils/utils');
+const {
+  interleave,
+  replicate,
+  compose,
+  zipWith,
+  concatStr,
+  unlines,
+  flat,
+  map,
+  trace
+} = require('../../common/utils/utils');
 
 //showPlayer :: Player -> [String]
-export const showPlayer = player => {
+const showPlayer = player => {
   switch (player) {
     case 'O':
       return ['   ', ' O ', '   '];
@@ -12,12 +22,33 @@ export const showPlayer = player => {
   }
 };
 
-const bar = replicate(3, ' | ');
-const beside = () => {};
+const beside = list => list.reduce(zipWith(concatStr));
 
 //showRow :: [Player] -> [String]
-export const showRow = compose(
+const showRow = compose(
   beside,
-  interleave(bar),
+  interleave(replicate(3, '|')),
   map(showPlayer)
 );
+
+const printGrid = compose(
+  trace('post unlines'),
+  unlines,
+  trace('post flat'),
+  flat,
+  interleave([replicate(3 * 4 - 1, '-')]),
+  map(showRow)
+);
+
+//showGrid :: Grid -> IO ()
+const showGrid = grid => {
+  const display = printGrid(grid);
+  console.log(display);
+};
+
+module.exports = {
+  showRow,
+  beside,
+  showPlayer,
+  showGrid
+};
