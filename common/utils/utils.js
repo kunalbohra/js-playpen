@@ -86,6 +86,9 @@ const chop = (n, list) =>
     ? []
     : [take(n, list)].concat(chop(n, drop(n, list)));
 
+//spliAt :: Int -> [a] -> ([a], [a])
+const splitAt = curry((n, list) => [take(n, list)].concat([drop(n, list)]));
+
 const trace = curry((tag, val) => {
   console.log(`tag ${tag} val ${val}`);
   return val;
@@ -107,5 +110,6 @@ module.exports = {
   flat,
   trace,
   last,
-  chop
+  chop,
+  splitAt
 };

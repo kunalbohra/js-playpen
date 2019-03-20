@@ -7,7 +7,8 @@ const {
   zipWith,
   unlines,
   last,
-  chop
+  chop,
+  splitAt
 } = require('./utils');
 
 describe('util tests', () => {
@@ -71,5 +72,11 @@ describe('util tests', () => {
     expect(chop(2, list)).toEqual([[1, 2], [3, 4], [5, 6], [7]]);
     expect(chop(0, list)).toEqual([1, 2, 3, 4, 5, 6, 7]);
     expect(chop(1, list)).toEqual([[1], [2], [3], [4], [5], [6], [7]]);
+  });
+
+  test('splitAt', () => {
+    expect(splitAt(2, [1, 2, 3, 4, 5])).toEqual([[1, 2], [3, 4, 5]]);
+    expect(splitAt(2, [1, 2])).toEqual([[1, 2], []]);
+    expect(splitAt(2, [1])).toEqual([[1], []]);
   });
 });
