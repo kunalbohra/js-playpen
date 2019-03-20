@@ -6,6 +6,9 @@ const tail = ([_, ...rest]) => rest;
 
 const last = list => list[list.length - 1];
 
+const take = (n, list) => list.slice(0, n);
+const drop = (n, list) => list.slice(n);
+
 //curry :: ((a, b) -> c) -> a -> b -> c
 const curry = fn => {
   const arity = fn.length;
@@ -75,6 +78,14 @@ const concatStr = curry((str1, str2) => str1.concat(str2));
 //unlines :: [a] -> a
 const unlines = list => list.join('\n');
 
+//chop :: Int -> [a] -> [[a]]
+const chop = (n, list) =>
+  n === 0
+    ? list
+    : list.length < 1
+    ? []
+    : [take(n, list)].concat(chop(n, drop(n, list)));
+
 const trace = curry((tag, val) => {
   console.log(`tag ${tag} val ${val}`);
   return val;
@@ -95,5 +106,6 @@ module.exports = {
   unlines,
   flat,
   trace,
-  last
+  last,
+  chop
 };

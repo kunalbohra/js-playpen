@@ -5,7 +5,8 @@ const {
   reverse,
   compose,
   any,
-  transpose
+  transpose,
+  curry
 } = require('../common/utils/utils');
 
 const empty = size => replicate(size)(replicate(size, 'B'));
@@ -46,6 +47,9 @@ const wins = (player, grid) => {
 //won :: Grid -> Bool
 const won = grid => wins('O', grid) || wins('X', grid);
 
+//valid :: Grid -> Number -> Boolean
+const valid = curry((grid, i) => 0 <= i && i < 3 ** 2 && grid[i] === ' ');
+
 module.exports = {
   empty,
   full,
@@ -53,5 +57,6 @@ module.exports = {
   diag,
   wins,
   reverseDiag,
-  won
+  won,
+  valid
 };

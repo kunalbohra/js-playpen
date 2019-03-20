@@ -6,7 +6,8 @@ const {
   interleave,
   zipWith,
   unlines,
-  last
+  last,
+  chop
 } = require('./utils');
 
 describe('util tests', () => {
@@ -62,5 +63,13 @@ describe('util tests', () => {
 
   xtest('unlines', () => {
     expect(unlines(['h', 'k'])).toEqual('h\nk\n');
+  });
+
+  test('chop', () => {
+    const list = [1, 2, 3, 4, 5, 6, 7];
+    expect(chop(3, list)).toEqual([[1, 2, 3], [4, 5, 6], [7]]);
+    expect(chop(2, list)).toEqual([[1, 2], [3, 4], [5, 6], [7]]);
+    expect(chop(0, list)).toEqual([1, 2, 3, 4, 5, 6, 7]);
+    expect(chop(1, list)).toEqual([[1], [2], [3], [4], [5], [6], [7]]);
   });
 });
