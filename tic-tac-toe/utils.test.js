@@ -1,4 +1,13 @@
-const { empty, full, turn, diag, reverseDiag, wins, won } = require('./utils');
+const {
+  empty,
+  full,
+  turn,
+  diag,
+  reverseDiag,
+  wins,
+  won,
+  valid
+} = require('./utils');
 
 describe('utils test', () => {
   test('an empty grid is produced by empty', () => {
@@ -49,5 +58,12 @@ describe('utils test', () => {
     expect(won([['X', 'X', 'O'], ['O', 'O', 'X'], ['X', 'X', 'O']])).toBe(
       false
     );
+  });
+
+  test('valid', () => {
+    const grid = [['X', 'O', ' '], ['X', 'O', 'O'], ['X', 'O', 'X']];
+
+    expect(valid(grid, 2)).toBe(true);
+    expect(valid(grid, 9)).toBe(false);
   });
 });

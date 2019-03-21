@@ -6,7 +6,9 @@ const {
   compose,
   any,
   transpose,
-  curry
+  curry,
+  chop,
+  splitAt
 } = require('../common/utils/utils');
 
 const empty = size => replicate(size)(replicate(size, 'B'));
@@ -48,7 +50,19 @@ const wins = (player, grid) => {
 const won = grid => wins('O', grid) || wins('X', grid);
 
 //valid :: Grid -> Number -> Boolean
-const valid = curry((grid, i) => 0 <= i && i < 3 ** 2 && grid[i] === ' ');
+const valid = curry(
+  (grid, i) => 0 <= i && i < 3 ** 2 && grid.flat()[i] === ' '
+);
+
+//move :: Grid -> Number -> Player -> [Grid]
+const move = curry((grid, i, player) => {
+  if (valid(grid, i)) {
+    const [xs, ys] = splitAt(i, grid.flat());
+    return chop(3, xs.concat([player]).concat(ys));
+  } else {
+    return [];
+  }
+});
 
 module.exports = {
   empty,
@@ -58,5 +72,6 @@ module.exports = {
   wins,
   reverseDiag,
   won,
-  valid
+  valid,
+  move
 };
