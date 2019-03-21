@@ -132,6 +132,7 @@ module.exports = {
   flat,
   trace,
   last,
+  tail,
   chop,
   splitAt
 };

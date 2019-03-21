@@ -6,7 +6,8 @@ const {
   reverseDiag,
   wins,
   won,
-  valid
+  valid,
+  move
 } = require('./utils');
 
 describe('utils test', () => {
@@ -65,5 +66,11 @@ describe('utils test', () => {
 
     expect(valid(grid, 2)).toBe(true);
     expect(valid(grid, 9)).toBe(false);
+  });
+
+  test('move', () => {
+    const grid = [['X', 'O', ' '], ['X', 'O', 'O'], ['X', 'O', 'X']];
+    const updated = [[['X', 'O', 'X'], ['X', 'O', 'O'], ['X', 'O', 'X']]];
+    expect(move(grid, 2, 'X')).toEqual(updated);
   });
 });

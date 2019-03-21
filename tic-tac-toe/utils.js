@@ -8,7 +8,8 @@ const {
   transpose,
   curry,
   chop,
-  splitAt
+  splitAt,
+  tail
 } = require('../common/utils/utils');
 
 const empty = size => replicate(size)(replicate(size, 'B'));
@@ -58,7 +59,7 @@ const valid = curry(
 const move = curry((grid, i, player) => {
   if (valid(grid, i)) {
     const [xs, ys] = splitAt(i, grid.flat());
-    return chop(3, xs.concat([player]).concat(ys));
+    return [chop(3, xs.concat([player]).concat(tail(ys)))];
   } else {
     return [];
   }
